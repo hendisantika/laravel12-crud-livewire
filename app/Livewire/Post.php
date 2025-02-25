@@ -123,4 +123,15 @@ class Post extends Component
             session()->flash('error', 'Something goes wrong!!');
         }
     }
+
+    /**
+     * Cancel Add/Edit form and redirect to post listing page
+     * @return void
+     */
+    public function cancel()
+    {
+        $this->addPost = false;
+        $this->updatePost = false;
+        $this->resetFields();
+    }
 }
