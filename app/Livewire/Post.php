@@ -43,5 +43,15 @@ class Post extends Component
         return view('livewire.post', compact('posts'));
     }
 
+    /**
+     * Open Add Post form
+     * @return void
+     */
+    public function create()
+    {
+        $this->resetFields();
+        $this->addPost = true;
+        $this->updatePost = false;
+    }
 
 }
