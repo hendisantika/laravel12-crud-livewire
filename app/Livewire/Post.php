@@ -20,6 +20,17 @@ class Post extends Component
         'status' => 'required'
     ];
 
+    /**
+     * Reseting all inputted fields
+     * @return void
+     */
+    public function resetFields()
+    {
+        $this->title = '';
+        $this->content = '';
+        $this->status = 1;
+    }
+
     public function render()
     {
         return view('livewire.post');
