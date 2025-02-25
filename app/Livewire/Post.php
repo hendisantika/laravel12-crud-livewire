@@ -2,6 +2,8 @@
 
 namespace App\Livewire;
 
+use Illuminate\Contracts\View\Factory;
+use Illuminate\Contracts\View\View;
 use Livewire\Component;
 
 class Post extends Component
@@ -31,8 +33,15 @@ class Post extends Component
         $this->status = 1;
     }
 
+    /**
+     * render the post data
+     * @return Factory|View
+     */
     public function render()
     {
-        return view('livewire.post');
+        $posts = \App\Models\Post::latest()->get();
+        return view('livewire.post', compact('posts'));
     }
+
+
 }
