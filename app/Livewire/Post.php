@@ -134,4 +134,19 @@ class Post extends Component
         $this->updatePost = false;
         $this->resetFields();
     }
+
+    /**
+     * delete specific post data from the posts table
+     * @param mixed $id
+     * @return void
+     */
+    public function destroy($id)
+    {
+        try {
+            \App\Models\Post::find($id)->delete();
+            session()->flash('success', "Post Deleted Successfully!!");
+        } catch (Exception $e) {
+            session()->flash('error', "Something goes wrong!!");
+        }
+    }
 }
