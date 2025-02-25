@@ -2,6 +2,7 @@
 
 namespace App\Livewire;
 
+use Exception;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Contracts\View\View;
 use Livewire\Component;
@@ -54,4 +55,26 @@ class Post extends Component
         $this->updatePost = false;
     }
 
+    /**
+     * store the user inputted post data in the posts table
+     * @return void
+     */
+    public function store()
+    {
+        $this->validate();
+        try {
+            \App\Models\Post::create([
+                'title' => $this->title,
+                'content' => $this->content,
+                'status' => $this->status,
+                'slug' => Str::slug($this->title)
+            ]);
+
+            session()->flash('success', 'Post Created Successfully!!');
+            $this->resetFields();
+            $this->addPost = false;
+        } catch (Exception $ex) {
+            session()->flash('error', 'Something goes wrong!!');
+        }
+    }
 }
