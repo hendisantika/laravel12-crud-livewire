@@ -101,4 +101,26 @@ class Post extends Component
             session()->flash('error', 'Something goes wrong!!');
         }
     }
+
+    /**
+     * update the post data
+     * @return void
+     */
+    public function update()
+    {
+        $this->validate();
+        try {
+            \App\Models\Post::whereId($this->postId)->update([
+                'title' => $this->title,
+                'content' => $this->content,
+                'status' => $this->status,
+                'slug' => Str::slug($this->title)
+            ]);
+            session()->flash('success', 'Post Updated Successfully!!');
+            $this->resetFields();
+            $this->updatePost = false;
+        } catch (Exception $ex) {
+            session()->flash('error', 'Something goes wrong!!');
+        }
+    }
 }
